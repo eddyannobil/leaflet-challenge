@@ -68,3 +68,22 @@ function getRadius(magnitude){
   }  
   
 var GeoJSONUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
+
+d3.json(GeoJSONUrl).then(function(data){
+     L.geoJson(data,{
+         pointToLayer: function (feature, latlng) {
+             // Create a circle marker
+             return L.circleMarker(latlng, {
+                 radius: getRadius(feature.properties.mag), // different radius for different magnitude
+                 fillColor: getColor(feature.properties.mag), // different circle colors for different magnitude
+                 color: "#000",
+                 weight: 1,
+                 opacity: 1,
+                 fillOpacity: 0.8
+                });
+            },
+         onEachFeature: function(feature, layer){
+             layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><span>Magnitude: ${feature.properties.mag}</span>`)
+            }
+    }).addTo(mymap);
+})     
