@@ -39,3 +39,32 @@ function getColor(magnitude){
           break;
   }
 }
+
+// Function to determine circle radius based on the magnitude 
+function getRadius(magnitude){
+    switch(true){
+        case (magnitude <= 1):
+            return 5;
+            break;
+        case (magnitude <= 2):
+            return 7;
+            break;
+        case (magnitude <= 3):
+            return 9;
+            break;
+        case (magnitude <= 4):
+            return 11;
+            break;
+        case (magnitude <= 5):
+            return 13;
+            break;
+        case (magnitude > 5):
+            return 15;
+            break;
+        default:
+            return 1;
+            break;
+    }
+  }  
+  
+var GeoJSONUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
