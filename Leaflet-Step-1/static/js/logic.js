@@ -74,8 +74,8 @@ d3.json(GeoJSONUrl).then(function(data){
          pointToLayer: function (feature, latlng) {
              // Create a circle marker
              return L.circleMarker(latlng, {
-                 radius: getRadius(feature.properties.mag), // different radius for different magnitude
-                 fillColor: getColor(feature.properties.mag), // different circle colors for different magnitude
+                 radius: getRadius(feature.properties.mag), 
+                 fillColor: getColor(feature.properties.mag),
                  color: "#000",
                  weight: 1,
                  opacity: 1,
@@ -86,4 +86,22 @@ d3.json(GeoJSONUrl).then(function(data){
              layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><span>Magnitude: ${feature.properties.mag}</span>`)
             }
     }).addTo(mymap);
+
+    // Create a legend
+  var legend = L.control({position: 'bottomright'});
+  legend.onAdd = function () {
+
+      var div = L.DomUtil.create('div', 'info legend'),
+      depth = [-10, 10, 30, 50, 70, 90];
+      div.innerHTML += "<h4>Magnitude Level</h4><hr>"
+      // loop through our density intervals and generate a label with a colored square for each interval
+      for (var i = 0; i < depth.length; i++) {
+          div.innerHTML +=
+              '<i style="background: "#ccff66" '  + '"></i> ' +
+              depth[i] + (depth[i + 1] ? '&ndash;' + depth[i + 1] + '<br>' : '+');
+      }
+      return div;
+    };
+    legend.addTo(mymap);
+
 })     
