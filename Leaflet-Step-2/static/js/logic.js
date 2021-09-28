@@ -135,3 +135,16 @@ function getRadius(magnitude){
     };
     legend.addTo(mymap);
   })  
+ 
+   // Retrive Tectonic Plate geoJSON data.
+   d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"). then(function(platedata) {
+ 
+    L.geoJson(platedata, {
+      color: "orange",
+      weight: 2
+    })
+    .addTo(tectonicplates);
+
+    // Add the tectonicplates layer to the map.
+    tectonicplates.addTo(mymap);
+});
