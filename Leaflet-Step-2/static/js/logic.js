@@ -47,3 +47,52 @@ L
   .control
   .layers(baseMaps, overlayMaps)
   .addTo(mymap);
+
+
+  // Define the color of the marker based on the magnitude of the earthquake.
+function getColor(magnitude) {
+    switch (true) {
+      case magnitude > 5:
+        return "#ea2c2c";
+      case magnitude > 4:
+        return "#ea822c";
+      case magnitude > 3:
+        return "#ee9c00";
+      case magnitude > 2:
+        return "#eecc00";
+      case magnitude > 1:
+        return "#d4ee00";
+      default:
+        return "#98ee00";
+    }
+  }
+
+  // Define the radius of the earthquake marker based on its magnitude.
+
+function getRadius(magnitude){
+    switch(true){
+        case (magnitude <= 1):
+            return 5;
+            break;
+        case (magnitude <= 2):
+            return 7;
+            break;
+        case (magnitude <= 3):
+            return 9;
+            break;
+        case (magnitude <= 4):
+            return 11;
+            break;
+        case (magnitude <= 5):
+            return 13;
+            break;
+        case (magnitude > 5):
+            return 15;
+            break;
+        default:
+            return 1;
+            break;
+    }
+  }  
+
+  // Retrieve earthquake geoJSON data.
